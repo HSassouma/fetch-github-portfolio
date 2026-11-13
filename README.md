@@ -87,3 +87,11 @@ Pour terminer, n'oubliez pas d'appeler `loadPortfolio(USERNAME)` tout en bas du 
 > **Attention à la limite de requêtes (Rate Limit) :**
 > L'API publique de GitHub limite les requêtes non authentifiées à **60 requêtes par heure et par adresse IP**. 
 > Si vous dépassez cette limite, l'API renverra une erreur `403`. Pour éviter d'être bloqué pendant le développement ou en salle de cours, passez la variable de configuration **`USE_MOCK` à `true`** pour utiliser les fichiers locaux du dossier `mock/`.
+
+
+### Test the api using your github username via Browser (Chrome, Brave, Edge)
+- getting the profile information
+> https://api.github.com/users/zakariabensaid-360
+
+- getting user repos
+> https://api.github.com/users/zakariabensaid-360/repos?sort=updated&per_page=100
