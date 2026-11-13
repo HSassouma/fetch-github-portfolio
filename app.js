@@ -48,6 +48,38 @@ async function fetchJson(url) {
 // - Bio, localisation, date de création du compte (created_at) et lien GitHub
 // - Statistiques (nombre de repos, abonnés, abonnements)
 
+function renderProfile(user) {
+    const avatar = document.querySelector("#avatar");
+    const nom = document.querySelector("#name");
+    const pseudo = document.querySelector("#login");
+    const bio = document.querySelector("#bio");
+    const localisation = document.querySelector("#location");
+    const joined = document.querySelector("#joined");
+
+    const stat_repos = document.querySelector("#stat-repos");
+    const stat_followers = document.querySelector("#stat-followers");
+    const stat_following = document.querySelector("#stat-following");
+
+    const profileLink = document.querySelector("#github-link");
+
+    avatar.src = user.avatar_url;
+    avatar.alt = user.login;
+
+    nom.textContent = user.name || user.login;
+    pseudo.textContent = `@${user.login}`;
+
+    bio.textContent = user.bio || "Aucune biographie disponible";
+    localisation.textContent = user.location || "Non renseignée";
+
+    joined.textContent = new Date(user.created_at).toLocaleDateString("fr-FR");
+
+    stat_repos.textContent = user.public_repos;
+    stat_followers.textContent = user.followers;
+    stat_following.textContent = user.following;
+
+    profileLink.href = user.html_url;
+}
+
 
 /* ==================================================================
    ÉTAPE 3 — Affichage des dépôts (Repositories)
@@ -56,7 +88,31 @@ async function fetchJson(url) {
 // TODO [À faire par l'étudiant] : Créer la fonction createRepoCard(repo)
 // Objectif : Cloner le template HTML (#repo-template), remplir ses champs 
 // (nom, lien, description, étoiles, forks, langage, date de mise à jour) et retourner la carte.
+function createRepoCard(repo) {
+    const template = document.querySelector("#repo-template");
+    const clone = template.content.cloneNode(true);
 
+    const repo_name = clone.querySelector(".repo-name");
+    const repo_description = clone.querySelector(".repo-description");
+    const repo_language = clone.querySelector(".repo-language");
+    const repo_forks = clone.querySelector(".repo-forks");
+    const repo_updated = clone.querySelector(".repo-updated");
+    const repo_stars = clone.querySelector(".repo-stars");
+
+    repo_name.textContent = repo.name;
+    repo_name.href = repo.html_url;
+
+    repo_description.textContent = repo.description || "Aucune description";
+
+    repo_language.textContent = repo.language || "Non spécifié";
+
+    repo_forks.textContent = repo.forks;
+    repo_stars.textContent = repo.stargazers_count;
+
+    repo_updated.textContent = `Mis à jour le ${new Date(repo.updated_at).toLocaleDateString("fr-FR")}`;
+
+    return clone;
+}
 
 // TODO [À faire par l'étudiant] : Créer la fonction renderRepos(repos)
 // Objectif : 
@@ -64,6 +120,9 @@ async function fetchJson(url) {
 // 2. Parcourir le tableau des repos pour y ajouter les cartes générées
 // 3. Mettre à jour le compteur de dépôts (#repo-count)
 // 4. Gérer l'affichage du message "Aucun projet" (#repo-empty) si le tableau est vide.
+
+
+
 
 
 /* ==================================================================
