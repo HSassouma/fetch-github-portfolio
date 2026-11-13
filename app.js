@@ -121,7 +121,22 @@ function createRepoCard(repo) {
 // 3. Mettre à jour le compteur de dépôts (#repo-count)
 // 4. Gérer l'affichage du message "Aucun projet" (#repo-empty) si le tableau est vide.
 
+function renderRepos(repos) {
+    const repoGrid = document.querySelector("#repo-grid");
+    const repoCount = document.querySelector("#repo-count");
+    const repoEmpty = document.querySelector("#repo-empty");
 
+    repoGrid.innerHTML = "";
+
+    repoCount.textContent = `${repos.length} dépôt(s)`;
+
+    repoEmpty.hidden = repos.length !== 0;
+
+    repos.forEach(function(repo) {
+        const card = createRepoCard(repo);
+        repoGrid.appendChild(card);
+    });
+}
 
 
 
