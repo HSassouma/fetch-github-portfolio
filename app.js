@@ -20,6 +20,16 @@ function getUrl(path) {
   return `https://api.github.com${path}`;
 }
 
+async function fetchJson(url) {
+   const response= await fetch(getUrl(url))
+   if(!response.ok){
+      throw new Error(response.status);
+       
+   }
+   const data =  await response.json()
+   return data
+}
+
 // TODO [À faire par l'étudiant] : Créer la fonction asynchrone fetchJSON(path)
 // Objectif : 
 // 1. Appeler fetch() avec getUrl(path)
